@@ -1,11 +1,14 @@
+import Image from "./Image";
+import Button from "./ui/Button";
 interface Iprobs {}
 
 const ProductCard = ({}: Iprobs) => {
   return (
     <div className="flex flex-col border-2 border-gray-200 p-4 rounded-lg shadow-lg">
-      <img
+      <Image
         src="https://www.pixelstalk.net/wp-content/uploads/2016/08/Lamborghini-mountain-fog-sports-car-photos.jpg"
-        alt=" product image"
+        alt="prodct car "
+        classname="my-2 rounded-md"
       />
       <h3> Lamborghini new model 2025</h3>
       <p>
@@ -20,19 +23,20 @@ const ProductCard = ({}: Iprobs) => {
       </div>
       <div className="flex items-center justify-between">
         <span>500,000$</span>
-        <img
-          className="w-10 h-10 rounded-full cursor-pointer"
+
+        <Image
           src="https://www.pixelstalk.net/wp-content/uploads/2016/08/Lamborghini-mountain-fog-sports-car-photos.jpg"
-          alt=" product image"
+          alt="prodct car "
+          classname="w-10 h-10 rounded-full cursor-pointer object-bottom"
         />
       </div>
       <div className="flex items-center justify-between space-x-1.5 my-1.5">
-        <button className="bg-indigo-500 w-full text-white rounded-md p-2 cursor-pointer">
-          Edit
-        </button>
-        <button className="bg-red-700 w-full text-white rounded-md p-2 cursor-pointer">
-          Destroy
-        </button>
+        <Button classname="bg-indigo-500" width="w-full" onClick={
+            () => {
+                alert('hello')
+            }
+        }>Edit</Button>
+        <Button classname="bg-red-500" width="w-full">destroy</Button>
       </div>
     </div>
   );
