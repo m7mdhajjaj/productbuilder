@@ -9,7 +9,7 @@ interface Iprobs {
 
 const ProductCard = ({ product }: Iprobs) => {
   return (
-    <div className="flex flex-col border-2 border-gray-200 p-4 rounded-lg shadow-lg">
+    <div className="max-w-sm md:max-w-lg lg:max-w-xl mx-auto md:mx-0  flex flex-col border-2 border-gray-200 p-4 rounded-lg shadow-lg">
       <Image
         src={product.imageURL}
         alt="prodct car "
