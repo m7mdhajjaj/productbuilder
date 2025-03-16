@@ -23,7 +23,7 @@ function App() {
     <div key={input.id} className="flex flex-col space-y-1">
       <label htmlFor={input.id}>{input.label}</label>
       <Input
-        className="p-2 border-2 border-gray-200 h-10 my-3 "
+        className="p-2 border-2 border-gray-200 h-10 my-2 "
         type={input.type}
         name={input.name}
         id={input.id}
@@ -31,7 +31,7 @@ function App() {
       />
     </div>
   ));
-  
+
   return (
     <main className="container mx-auto">
       <Button
@@ -42,14 +42,19 @@ function App() {
 
       <div className="border-2 border-gray-200 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-5">
         {renderProductList}
-        <MyModal isOpenn={isOpen} close={close} title="add new product">
-          {renderFormInputs}
-          <div className="flex items-center justify-between space-x-1.5 ">
-            <Button className="bg-amber-400 w-full">submit</Button>
-            <Button className="bg-amber-950 hover:bg-amber-50 w-full">
-              cancel
-            </Button>
-          </div>
+        <MyModal isOpenn={isOpen} close={close} title="Add New Product">
+          <form
+            className="flex flex-col space-x-3">
+            {renderFormInputs}
+            <div className="flex items-center justify-between space-x-1.5 ">
+              <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
+                submit
+              </Button>
+              <Button className="bg-gray-700  hover:bg-gray-500 w-full h-10  rounded-md text-white">
+                cancel
+              </Button>
+            </div>
+          </form>
         </MyModal>
       </div>
     </main>
