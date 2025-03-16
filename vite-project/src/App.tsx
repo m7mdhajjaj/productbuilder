@@ -5,9 +5,20 @@ import MyModal from "./component/ui/Modal";
 import Button from "./component/ui/Button";
 import { formInputsList } from "./component/data";
 import Input from "./component/ui/input";
+import { IProduct } from "./component/interfaces/IProduct";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [Product, setProduct] = useState<IProduct>({
+    title: "",
+    price: 0,
+    description: "",
+    imageURL: "",
+    colors: [],
+    category: {
+      name: "",
+      imageURL: "    ",
+    },
+  });
   function open() {
     setIsOpen(true);
   }
@@ -15,6 +26,15 @@ function App() {
   function close() {
     setIsOpen(false);
   }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setProduct({
+      ...Product,
+      [name]: value,
+    });
+  };
   const renderProductList = productList.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
@@ -28,10 +48,12 @@ function App() {
         name={input.name}
         id={input.id}
         placeholder={input.label}
+        value={Product[input.name]}
+        onChange={handleChange}
       />
     </div>
   ));
-
+  console.log(Product);
   return (
     <main className="container mx-auto">
       <Button
@@ -43,8 +65,7 @@ function App() {
       <div className="border-2 border-gray-200 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-5">
         {renderProductList}
         <MyModal isOpenn={isOpen} close={close} title="Add New Product">
-          <form
-            className="flex flex-col space-x-3">
+          <form className="flex flex-col space-x-3">
             {renderFormInputs}
             <div className="flex items-center justify-between space-x-1.5 ">
               <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
