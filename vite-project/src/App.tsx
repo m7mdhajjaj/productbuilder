@@ -53,7 +53,28 @@ function App() {
       />
     </div>
   ));
-  console.log(Product);
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    console.log("Submitted Product:", Product);
+    // Here you can add the logic to handle the form submission, 
+    // such as sending the product data to an API or updating the state.
+    close();
+  };
+  const cancelHandler = (event: React.FormEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+    setProduct({
+      title: "",
+      price: 0,
+      description: "",
+      imageURL: "",
+      colors: [],
+      category: {
+        name: "",
+        imageURL: "    ",
+      },
+    });
+    close();
+  };
   return (
     <main className="container mx-auto">
       <Button
@@ -65,13 +86,13 @@ function App() {
       <div className="border-2 border-gray-200 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-5">
         {renderProductList}
         <MyModal isOpenn={isOpen} close={close} title="Add New Product">
-          <form className="flex flex-col space-x-3">
+          <form className="flex flex-col space-x-3" onSubmit={submitHandler}>
             {renderFormInputs}
             <div className="flex items-center justify-between space-x-1.5 ">
               <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
                 submit
               </Button>
-              <Button className="bg-gray-700  hover:bg-gray-500 w-full h-10  rounded-md text-white">
+              <Button className="bg-gray-700  hover:bg-gray-500 w-full h-10  rounded-md text-white" onClick={cancelHandler}>
                 cancel
               </Button>
             </div>
