@@ -1,5 +1,4 @@
-import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { useState } from "react";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 interface Iprobs {
   isOpenn: boolean;
@@ -9,8 +8,6 @@ interface Iprobs {
 }
 
 export default function MyModal({ isOpenn, close, title, children }: Iprobs) {
-  
-
   return (
     <>
       <Dialog
@@ -23,17 +20,11 @@ export default function MyModal({ isOpenn, close, title, children }: Iprobs) {
             <DialogPanel
               transition
               className="w-full max-w-md rounded-xl bg-white p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0">
-          
-                <DialogTitle
-                  as="h3"
-                  className=" font-medium text-black text-xl">
-                    {title}
-                  </DialogTitle>
-              
+              <DialogTitle as="h3" className=" font-medium text-black text-xl">
+                {title}
+              </DialogTitle>
 
-              <div className="mt-4">
-                {children}
-              </div>
+              <div className="mt-4">{children}</div>
             </DialogPanel>
           </div>
         </div>

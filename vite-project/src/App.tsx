@@ -7,10 +7,9 @@ import { formInputsList } from "./component/data";
 import Input from "./component/ui/input";
 import { IProduct } from "./component/interfaces/IProduct";
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [Product, setProduct] = useState<IProduct>({
+  const defaultProductObj = {
     title: "",
-    price: 0,
+    price: "",
     description: "",
     imageURL: "",
     colors: [],
@@ -18,7 +17,9 @@ function App() {
       name: "",
       imageURL: "    ",
     },
-  });
+  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [Product, setProduct] = useState<IProduct>(defaultProductObj);
   function open() {
     setIsOpen(true);
   }
@@ -56,23 +57,13 @@ function App() {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     console.log("Submitted Product:", Product);
-    // Here you can add the logic to handle the form submission, 
+    // Here you can add the logic to handle the form submission,
     // such as sending the product data to an API or updating the state.
     close();
   };
   const cancelHandler = (event: React.FormEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    setProduct({
-      title: "",
-      price: 0,
-      description: "",
-      imageURL: "",
-      colors: [],
-      category: {
-        name: "",
-        imageURL: "    ",
-      },
-    });
+    setProduct(defaultProductObj);
     close();
   };
   return (
@@ -92,7 +83,9 @@ function App() {
               <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
                 submit
               </Button>
-              <Button className="bg-gray-700  hover:bg-gray-500 w-full h-10  rounded-md text-white" onClick={cancelHandler}>
+              <Button
+                className="bg-gray-700  hover:bg-gray-500 w-full h-10  rounded-md text-white"
+                onClick={cancelHandler}>
                 cancel
               </Button>
             </div>
