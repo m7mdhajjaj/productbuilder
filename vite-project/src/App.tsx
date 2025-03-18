@@ -6,6 +6,7 @@ import Button from "./component/ui/Button";
 import { formInputsList } from "./component/data";
 import Input from "./component/ui/input";
 import { IProduct } from "./component/interfaces/IProduct";
+import { errorValidation } from "./validation";
 function App() {
   const defaultProductObj = {
     title: "",
@@ -57,8 +58,8 @@ function App() {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     console.log("Submitted Product:", Product);
-    // Here you can add the logic to handle the form submission,
-    // such as sending the product data to an API or updating the state.
+    const error = errorValidation({title:Product.title,price: Product.price, description:Product.description,imageURL: Product.imageURL});
+    console.log("Error:", error);
     close();
   };
   const cancelHandler = (event: React.FormEvent<HTMLButtonElement>): void => {

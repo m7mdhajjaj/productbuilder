@@ -15,22 +15,27 @@ export const errorValidation = (product: {
     description: "",
     imageURL: "",
   };
+
+  const validUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(product.imageURL);
   if (
-    product.title.trim() ||
+    !product.title.trim() ||
     product.title.length < 10 ||
     product.title.length > 100
   ) {
     error.title = "Title must be between 10 and 100 characters";
   }
-    if (product.price.trim() || isNaN(+product.price)) {
+    if (!product.price.trim() || isNaN(+product.price)) {
         error.price = "Price must be a number";
     }
-    if (product.description.trim() || product.description.length < 20) {
+    if (!product.description.trim() || product.description.length < 20) {
         error.description = "Description must be at least 20 characters";
     }
-    if (product.imageURL.trim() || !product.imageURL.includes("http")) {
-        error.imageURL = "Image URL must be a valid URL";
+
+    if (!product.imageURL.trim() || !validUrl) {
+        error.imageURL = "Image URL is required and must be a valid URL";
     }
+    
+    
    
   return error;
 };
