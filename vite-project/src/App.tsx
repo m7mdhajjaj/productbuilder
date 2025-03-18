@@ -7,6 +7,7 @@ import { formInputsList } from "./component/data";
 import Input from "./component/ui/input";
 import { IProduct } from "./component/interfaces/IProduct";
 import { errorValidation } from "./validation";
+import ErrorMessage from "./component/errorMessage";
 function App() {
   const defaultProductObj = {
     title: "",
@@ -20,6 +21,12 @@ function App() {
     },
   };
   const [isOpen, setIsOpen] = useState(false);
+  const [error2, setError] = useState({
+    title: "",
+    price: "",
+    description: "",
+    imageURL: "",
+  });
   const [Product, setProduct] = useState<IProduct>(defaultProductObj);
   function open() {
     setIsOpen(true);
@@ -53,6 +60,7 @@ function App() {
         value={Product[input.name]}
         onChange={handleChange}
       />
+      <ErrorMessage message={error2[input.name]} />
     </div>
   ));
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -67,6 +75,7 @@ function App() {
     });
     const hasErrorMessage = Object.values(error).some(err => err=='')&& Object.values(error).every(err => err == "");
     if (!hasErrorMessage) {
+      setError(error);
       return
     }
     
