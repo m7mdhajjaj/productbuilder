@@ -57,10 +57,20 @@ function App() {
   ));
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log("Submitted Product:", Product);
-    const error = errorValidation({title:Product.title,price: Product.price, description:Product.description,imageURL: Product.imageURL});
-    console.log("Error:", error);
-    close();
+    const { title, price, description, imageURL } = Product;
+    const error = errorValidation({
+      title,
+      price,
+      description,
+      imageURL,
+      
+    });
+    const hasErrorMessage = Object.values(error).some(err => err=='')&& Object.values(error).every(err => err == "");
+    if (!hasErrorMessage) {
+      return
+    }
+    
+      close();
   };
   const cancelHandler = (event: React.FormEvent<HTMLButtonElement>): void => {
     event.preventDefault();
