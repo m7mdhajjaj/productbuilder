@@ -43,6 +43,10 @@ function App() {
       ...Product,
       [name]: value,
     });
+    setError({
+      ...error2,
+      [name]: "",
+    });
   };
   const renderProductList = productList.map((product) => (
     <ProductCard key={product.id} product={product} />
@@ -99,7 +103,7 @@ function App() {
         <MyModal isOpenn={isOpen} close={close} title="Add New Product">
           <form className="flex flex-col space-x-3" onSubmit={submitHandler}>
             {renderFormInputs}
-            <div className="flex items-center justify-between space-x-1.5 ">
+            <div className="flex items-center justify-between space-x-1.5 my-1.5">
               <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
                 submit
               </Button>
