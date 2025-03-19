@@ -8,6 +8,11 @@ import Input from "./component/ui/input";
 import { IProduct } from "./component/interfaces/IProduct";
 import { errorValidation } from "./validation";
 import ErrorMessage from "./component/errorMessage";
+import { colors } from "./component/data";
+
+import ColorCircle from "./component/colorCircle";
+
+
 function App() {
   const defaultProductObj = {
     title: "",
@@ -75,21 +80,26 @@ function App() {
       price,
       description,
       imageURL,
-      
     });
-    const hasErrorMessage = Object.values(error).some(err => err=='')&& Object.values(error).every(err => err == "");
+    const hasErrorMessage =
+      Object.values(error).some((err) => err == "") &&
+      Object.values(error).every((err) => err == "");
     if (!hasErrorMessage) {
       setError(error);
-      return
+      return;
     }
-    
-      close();
+
+    close();
   };
   const cancelHandler = (event: React.FormEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     setProduct(defaultProductObj);
     close();
   };
+  const renderColors = colors.map((color) => (
+    <ColorCircle key={color} color={color} />
+  ));
+
   return (
     <main className="container mx-auto">
       <Button
@@ -103,6 +113,10 @@ function App() {
         <MyModal isOpenn={isOpen} close={close} title="Add New Product">
           <form className="flex flex-col space-x-3" onSubmit={submitHandler}>
             {renderFormInputs}
+                  <div className=" flex items-center flex-wrap space-x-1">
+        {renderColors}
+      </div>
+
             <div className="flex items-center justify-between space-x-1.5 my-1.5">
               <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
                 submit

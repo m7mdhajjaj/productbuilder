@@ -18,7 +18,6 @@ const ProductCard = ({ product }: Iprobs) => {
       <h3>{product.title}</h3>
       <p>{TxtSlice(product.description)}</p>
       <div className=" flex items-center my-3 space-x-2">
-        <span className="w-5 h-5 bg-indigo-500 rounded-full cursor-pointer" />
         <span className="w-5 h-5 bg-green-500 rounded-full cursor-pointer" />
         <span className="w-5 h-5 bg-red-500 rounded-full cursor-pointer" />
         <span className="w-5 h-5 bg-blue-500 rounded-full cursor-pointer" />
