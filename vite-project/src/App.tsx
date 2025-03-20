@@ -26,6 +26,8 @@ function App() {
     },
   };
   const [isOpen, setIsOpen] = useState(false);
+  const[tempColor, setTempColor] = useState<string[]>([]);
+  console.log(tempColor)
   const [error2, setError] = useState({
     title: "",
     price: "",
@@ -97,7 +99,12 @@ function App() {
     close();
   };
   const renderColors = colors.map((color) => (
-    <ColorCircle key={color} color={color} />
+    <ColorCircle key={color} color={color} 
+      onClick={() => {
+       setTempColor(prev=>[...prev, color]);
+      }
+      }
+     />
   ));
 
   return (
