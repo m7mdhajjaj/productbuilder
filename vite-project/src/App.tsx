@@ -101,6 +101,10 @@ function App() {
   const renderColors = colors.map((color) => (
     <ColorCircle key={color} color={color} 
       onClick={() => {
+        if(tempColor.includes(color)){
+          setTempColor((prev) => prev.filter((item) => item !== color));
+        return;
+        };
        setTempColor(prev=>[...prev, color]);
       }
       }
@@ -120,9 +124,16 @@ function App() {
         <MyModal isOpenn={isOpen} close={close} title="Add New Product">
           <form className="flex flex-col space-x-3" onSubmit={submitHandler}>
             {renderFormInputs}
-                  <div className=" flex items-center flex-wrap space-x-1">
-        {renderColors}
-      </div>
+            <div className=" flex items-center flex-wrap space-x-1">
+              {renderColors}
+            </div>
+            <div className=" flex items-center flex-wrap space-x-1">
+             {tempColor.map((color) => (
+              <span key={color} className="block " style={{ backgroundColor: color }}> 
+                 {color}
+              </span>
+              ))}
+            </div>
 
             <div className="flex items-center justify-between space-x-1.5 my-1.5">
               <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
