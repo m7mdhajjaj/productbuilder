@@ -9,9 +9,9 @@ import { IProduct } from "./component/interfaces/IProduct";
 import { errorValidation } from "./validation";
 import ErrorMessage from "./component/errorMessage";
 import { colors } from "./component/data";
+import { v4 as uuid } from "uuid";
 
 import ColorCircle from "./component/colorCircle";
-
 
 function App() {
   const defaultProductObj = {
@@ -26,8 +26,8 @@ function App() {
     },
   };
   const [isOpen, setIsOpen] = useState(false);
-  const[tempColor, setTempColor] = useState<string[]>([]);
-  console.log(tempColor)
+  const [tempColor, setTempColor] = useState<string[]>([]);
+  const [products, setProducts] = useState<IProduct[]>(productList);
   const [error2, setError] = useState({
     title: "",
     price: "",
@@ -55,7 +55,7 @@ function App() {
       [name]: "",
     });
   };
-  const renderProductList = productList.map((product) => (
+  const renderProductList = products.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
 
@@ -90,6 +90,10 @@ function App() {
       setError(error);
       return;
     }
+    setProducts((prev) => [...prev, { ...Product, colors: tempColor , id: uuid() }]);
+    setProduct(defaultProductObj);
+    setTempColor([]);
+
 
     close();
   };
@@ -99,16 +103,17 @@ function App() {
     close();
   };
   const renderColors = colors.map((color) => (
-    <ColorCircle key={color} color={color} 
+    <ColorCircle
+      key={color}
+      color={color}
       onClick={() => {
-        if(tempColor.includes(color)){
+        if (tempColor.includes(color)) {
           setTempColor((prev) => prev.filter((item) => item !== color));
-        return;
-        };
-       setTempColor(prev=>[...prev, color]);
-      }
-      }
-     />
+          return;
+        }
+        setTempColor((prev) => [...prev, color]);
+      }}
+    />
   ));
 
   return (
@@ -128,10 +133,13 @@ function App() {
               {renderColors}
             </div>
             <div className=" flex items-center flex-wrap space-x-1">
-             {tempColor.map((color) => (
-              <span key={color} className="block " style={{ backgroundColor: color }}> 
-                 {color}
-              </span>
+              {tempColor.map((color) => (
+                <span
+                  key={color}
+                  className="block "
+                  style={{ backgroundColor: color }}>
+                  {color}
+                </span>
               ))}
             </div>
 
