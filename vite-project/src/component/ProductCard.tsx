@@ -13,43 +13,41 @@ const ProductCard = ({ product }: Iprobs) => {
     <ColorCircle key={color} color={color} />
   ));
   return (
-    <div className="max-w-sm md:max-w-lg lg:max-w-xl mx-auto md:mx-0  flex flex-col border-2 border-gray-200 p-4 rounded-lg shadow-lg">
+    <div className="max-w-sm md:max-w-lg lg:max-w-xl mx-auto md:mx-0 flex flex-col border border-gray-200 p-6 rounded-2xl shadow-lg bg-gradient-to-br from-white to-gray-50 hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
+      <Image
+      src={product.imageURL}
+      alt="Product Image"
+      classname="my-4 rounded-xl object-cover w-full h-48 shadow-md"
+      />
+      <h3 className="text-xl font-bold text-gray-900 mb-2">{product.title}</h3>
+      <p className="text-sm text-gray-700 mb-4 leading-relaxed">{TxtSlice(product.description)}</p>
+      <div className="flex items-center flex-wrap space-x-2 mb-4">
+      {renderColors}
+      </div>
+      <div className="flex items-center justify-between mb-4">
+      <span className="text-lg font-bold text-gray-900">{product.price}$</span>
       <Image
         src={product.imageURL}
-        alt="prodct car "
-        classname="my-2 rounded-md"
+        alt="Product Thumbnail"
+        classname="w-12 h-12 rounded-full cursor-pointer object-cover border-2 border-gray-300 shadow-sm"
       />
-      <h3>{product.title}</h3>
-      <p>{TxtSlice(product.description)}</p>
-      <div className=" flex items-center flex-wrap space-x-1">
-        {renderColors}
       </div>
-      {/* <div className=" flex items-center my-3 space-x-2">
-        <span className="w-5 h-5 bg-green-500 rounded-full cursor-pointer" />
-        <span className="w-5 h-5 bg-red-500 rounded-full cursor-pointer" />
-        <span className="w-5 h-5 bg-blue-500 rounded-full cursor-pointer" />
-      </div> */}
-      <div className="flex items-center justify-between">
-        <span> {product.price}$</span>
-
-        <Image
-          src={product.imageURL}
-          alt="prodct car "
-          classname="w-10 h-10 rounded-full cursor-pointer object-bottom"
-        />
-      </div>
-      <div className="flex items-center justify-between space-x-1.5 my-1.5">
-        <Button
-          classname="bg-indigo-500"
-          width="w-full"
-          onClick={() => {
-            alert("hello");
-          }}>
-          Edit
-        </Button>
-        <Button classname="bg-red-500" width="w-full">
-          destroy
-        </Button>
+      <div className="flex items-center justify-between space-x-4">
+      <Button
+        classname="bg-blue-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition duration-200 ease-in-out transform hover:scale-105"
+        width="w-full"
+        onClick={() => {
+        alert("Edit button clicked");
+        }}
+      >
+        Edit
+      </Button>
+      <Button
+        classname="bg-red-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg transition duration-200 ease-in-out transform hover:scale-105"
+        width="w-full"
+      >
+        Destroy
+      </Button>
       </div>
     </div>
   );

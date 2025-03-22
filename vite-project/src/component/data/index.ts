@@ -22,7 +22,7 @@ export const productList: IProduct[] = [
       "A compact city car with efficient fuel consumption and modern features.A compact city car with efficient fuel consumption and modern features.A compact city car with efficient fuel consumption and modern features.A compact city car with efficient fuel consumption and modern features.",
     imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",
     price: "12000",
-    colors: ["#000000", "#FFFFFF", "#FF5733"],
+    colors: ["#000000", "#FFF0FF", "#FF5733"],
     category: {
       name: "Cars",
       imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",

@@ -118,11 +118,13 @@ function App() {
 
   return (
     <main className="container mx-auto">
-      <Button
-        className="bg-blue-800 hover:bg-amber-50  w-50 "
-        onClick={() => open()}>
-        add product
-      </Button>
+      <div className="flex justify-center my-6">
+        <Button
+          className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"
+          onClick={() => open()}>
+          Build New Product
+        </Button>
+      </div>
 
       <div className="border-2 border-gray-200 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-5">
         {renderProductList}
@@ -144,14 +146,14 @@ function App() {
             </div>
 
             <div className="flex items-center justify-between space-x-1.5 my-1.5">
-              <Button className="bg-indigo-500 hover:bg-indigo-300 w-full h-10 rounded-md text-white">
-                submit
-              </Button>
-              <Button
-                className="bg-gray-700  hover:bg-gray-500 w-full h-10  rounded-md text-white"
+                <Button className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105">
+                Submit
+                </Button>
+                <Button
+                className="w-full bg-gradient-to-r from-gray-500 via-gray-600 to-gray-700 hover:from-gray-600 hover:via-gray-700 hover:to-gray-800 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"
                 onClick={cancelHandler}>
-                cancel
-              </Button>
+                Cancel
+                </Button>
             </div>
           </form>
         </MyModal>
