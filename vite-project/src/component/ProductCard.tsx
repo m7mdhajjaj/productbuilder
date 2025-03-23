@@ -37,7 +37,9 @@ const ProductCard = ({ product }: Iprobs) => {
         classname="bg-blue-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition duration-200 ease-in-out transform hover:scale-105"
         width="w-full"
         onClick={() => {
+          
         alert("Edit button clicked");
+
         }}
       >
         Edit
