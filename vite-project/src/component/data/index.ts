@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { IProduct } from "../interfaces/IProduct";
 import { IFormInput } from "../interfaces/IProduct";
+import { ICategory } from "../interfaces/IProduct";
 export const productList: IProduct[] = [
   {
     id: uuid(),
@@ -101,4 +102,28 @@ export const colors: string[] = [
   "#00FF00",
   "#00FFFF",
   "#FFFF00",
+];
+
+export const categories: ICategory[] = [
+  {
+    id: uuid(),
+    name: "Cars",
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",
+  },
+  {
+    id: uuid(),
+    name: "Electric Cars",
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",
+  },
+  {
+    id: uuid(),
+    name: "Sports Cars",
+    imageURL: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c",
+  },
+
+  {
+    id: uuid(),
+    name: "SUV",
+    imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",
+  },
 ];

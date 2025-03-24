@@ -132,10 +132,8 @@ function App() {
         <MyModal isOpenn={isOpen} close={close} title="Add New Product">
           <form className="flex flex-col space-x-3" onSubmit={submitHandler}>
             {renderFormInputs}
-            <div className="flex flex-col space-y-1 " style={{ width: "100%",marginBottom:"1rem" }}>
-              <Select />
+            <Select />
 
-            </div>
             <div className=" flex items-center flex-wrap space-x-1">
               {renderColors}
             </div>
@@ -149,7 +147,6 @@ function App() {
                 </span>
               ))}
             </div>
-            
 
             <div className="flex items-center justify-between space-x-1.5 my-1.5">
               <Button className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105">
