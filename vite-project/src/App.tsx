@@ -5,7 +5,7 @@ import MyModal from "./component/ui/Modal";
 import Button from "./component/ui/Button";
 import { formInputsList } from "./component/data";
 import Input from "./component/ui/input";
-import { IProduct } from "./component/interfaces/IProduct";
+import { IProduct, ICategory } from "./component/interfaces/IProduct";
 import { errorValidation } from "./validation";
 import ErrorMessage from "./component/errorMessage";
 import { colors } from "./component/data";
@@ -21,8 +21,9 @@ function App() {
     imageURL: "",
     colors: [],
     category: {
+      id: "",
       name: "",
-      imageURL: "    ",
+      imageURL: "",
     },
   };
   const [isOpen, setIsOpen] = useState(false);
@@ -35,13 +36,43 @@ function App() {
     imageURL: "",
   });
   const [Product, setProduct] = useState<IProduct>(defaultProductObj);
+  const [editMode, setEditMode] = useState(false);
+  const [editProductId, setEditProductId] = useState<string | undefined>();
   function open() {
+    setIsOpen(true);
+    setEditMode(false);
+    setProduct(defaultProductObj);
+    setTempColor([]);
+  }
+
+  function openEditModal(product: IProduct) {
+    setEditMode(true);
+    // Ensure the category has an id if it doesn't already have one
+    const productWithValidCategory = {
+      ...product,
+      category: {
+        ...product.category,
+        id: "temp-id", // Add a temporary ID if needed
+      },
+    };
+    setProduct(productWithValidCategory);
+    setEditProductId(product.id);
+    setTempColor(product.colors || []);
     setIsOpen(true);
   }
 
   function close() {
     setIsOpen(false);
+    setEditMode(false);
+    setProduct(defaultProductObj);
+    setTempColor([]);
   }
+
+  const deleteProduct = (id: string) => {
+    if (confirm("Are you sure you want to delete this product?")) {
+      setProducts((prev) => prev.filter((product) => product.id !== id));
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,7 +87,12 @@ function App() {
     });
   };
   const renderProductList = products.map((product) => (
-    <ProductCard key={product.id} product={product} />
+    <ProductCard
+      key={product.id}
+      product={product}
+      onEdit={openEditModal}
+      onDelete={deleteProduct}
+    />
   ));
 
   const renderFormInputs = formInputsList.map((input) => (
@@ -90,13 +126,26 @@ function App() {
       setError(error);
       return;
     }
-    setProducts((prev) => [
-      ...prev,
-      { ...Product, colors: tempColor, id: uuid() },
-    ]);
+
+    if (editMode && editProductId) {
+      // Update existing product
+      setProducts((prev) =>
+        prev.map((product) =>
+          product.id === editProductId
+            ? { ...Product, colors: tempColor, id: editProductId }
+            : product
+        )
+      );
+    } else {
+      // Add new product
+      setProducts((prev) => [
+        ...prev,
+        { ...Product, colors: tempColor, id: uuid() },
+      ]);
+    }
+
     setProduct(defaultProductObj);
     setTempColor([]);
-
     close();
   };
   const cancelHandler = (event: React.FormEvent<HTMLButtonElement>): void => {
@@ -104,6 +153,13 @@ function App() {
     setProduct(defaultProductObj);
     close();
   };
+  const handleCategoryChange = (category: ICategory) => {
+    setProduct({
+      ...Product,
+      category: category,
+    });
+  };
+
   const renderColors = colors.map((color) => (
     <ColorCircle
       key={color}
@@ -129,10 +185,19 @@ function App() {
       </div>
       <div className="border-2 border-gray-200 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-5">
         {renderProductList}
-        <MyModal isOpenn={isOpen} close={close} title="Add New Product">
-          <form className="flex flex-col space-x-3" onSubmit={submitHandler}>
+        <MyModal
+          isOpenn={isOpen}
+          close={close}
+          title={editMode ? "Edit Product" : "Add New Product"}>
+          <form
+            className="flex flex-col space-x-3"
+            onSubmit={submitHandler}
+            onClick={(e) => e.stopPropagation()}>
             {renderFormInputs}
-            <Select />
+            <Select
+              selectedCategory={Product.category as ICategory}
+              onCategoryChange={handleCategoryChange}
+            />
 
             <div className=" flex items-center flex-wrap space-x-1">
               {renderColors}
@@ -150,7 +215,7 @@ function App() {
 
             <div className="flex items-center justify-between space-x-1.5 my-1.5">
               <Button className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105">
-                Submit
+                {editMode ? "Update" : "Submit"}
               </Button>
               <Button
                 className="w-full bg-gradient-to-r from-gray-500 via-gray-600 to-gray-700 hover:from-gray-600 hover:via-gray-700 hover:to-gray-800 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"
